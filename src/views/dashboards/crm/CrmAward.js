@@ -6,7 +6,6 @@ import { styled, useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import useIsMountedRef from 'src/hooks2/useIsMountedRef'
-import { SocketContext } from 'src/contexts/socket'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSnackbar } from 'notistack'
 import { getExchange } from 'src/redux/dashboard/account/action'
@@ -17,8 +16,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import { useForm } from 'react-hook-form'
 import { Grid, MenuItem } from '@mui/material'
-import { FormProvider, RHFTextField } from 'src/component/hook-form'
 import Iconify from 'src/component/Iconify'
+import { FormProvider, RHFTextField } from '../../../component/hook-form'
+import { SocketContext } from '../../../contexts/socket'
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Menu from "@mui/material/Menu";
+import * as React from "react";
 
 // Styled component for the trophy image
 const TrophyImg = styled('img')(({ theme }) => ({
@@ -154,12 +157,12 @@ const CrmAward = () => {
   };
 
   useEffect(() => {
-    socket.current?.on('update_history_trading', handleUpdateHistoryTrading);
-    socket.current?.on('update_bothistory', handleUpdateBotHistory);
+    socket?.current?.on('update_history_trading', handleUpdateHistoryTrading);
+    socket?.current?.on('update_bothistory', handleUpdateBotHistory);
 
     return () => {
-      socket.current?.off('update_history_trading', handleUpdateHistoryTrading);
-      socket.current?.off('update_bothistory', handleUpdateBotHistory);
+      socket?.current?.off('update_history_trading', handleUpdateHistoryTrading);
+      socket?.current?.off('update_bothistory', handleUpdateBotHistory);
     };
   }, [socket]);
 
@@ -265,10 +268,20 @@ const CrmAward = () => {
   const handleCloseWallet = () => {
     setOpenWallet(false);
   };
-
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ position: 'relative' }}>
+      <div style={{ position: "absolute", right: 0, top: 0 }}>
+        <MoreVertIcon onClick={handleClick} />
+      </div>
             <CardContent>
             <Grid container spacing={1}>
               <Grid item xs={6} md={6}>
@@ -396,8 +409,28 @@ const CrmAward = () => {
                 </Button>
               </Grid>
             </Grid>
+            <br />
+            <Grid style={{display: "flex", justifyContent: 'center', alignItems: "center"}}>
+             <Button style={{textAlign: "center"}}>Turn On</Button>
+            </Grid>
             </CardContent>
+            
           </Card>
+          <Menu
+            
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
+        >
+          <MenuItem onClick={handleClose}>On</MenuItem>
+          <MenuItem onClick={handleClose}>Off</MenuItem>
+        </Menu>
     </FormProvider>
   )
 }

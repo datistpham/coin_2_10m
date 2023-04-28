@@ -11,9 +11,9 @@ import Store from "../src/store/Store";
 import RTL from "./../src/layouts/full/shared/customizer/RTL";
 import { useSelector } from "../src/store/Store";
 import { AppState } from "../src/store/Store";
-
 import BlankLayout from "../src/layouts/blank/BlankLayout";
 import FullLayout from "../src/layouts/full/FullLayout";
+import "../styles/globals.css"
 
 import "../src/_mockApis";
 
