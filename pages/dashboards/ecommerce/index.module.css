@@ -1,0 +1,11 @@
+.botlist__item {
+    width: 100%;
+    margin: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    height: auto;   
+    padding: 20px;
+    box-shadow: 1px 0px 2px 3px rgba(0,0,0,0.10);
+    border-radius: 10px;
+}

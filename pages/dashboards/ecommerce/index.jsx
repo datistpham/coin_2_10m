@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Divider, Grid } from "@mui/material";
 import PageContainer from "../../../src/components/container/PageContainer";
 
 import WeeklyStats from "../../../src/components/dashboards/modern/WeeklyStats";
@@ -17,6 +17,7 @@ import ProductPerformances from "../../../src/components/dashboards/ecommerce/Pr
 import RecentTransactions from "../../../src/components/dashboards/ecommerce/RecentTransactions";
 import Slider from "react-slick";
 import CrmAward from "../../../src/views/dashboards/crm/CrmAward";
+import styles from "./index.module.css"
 // ** MUI Imports
 
 // ** Icon Imports
@@ -58,18 +59,22 @@ import { FormProvider, RHFTextField } from "src/component/hook-form";
 import { WalletDialog } from "src/sections/@dashboard/general/account";
 import { SocketContext } from "../../../src/contexts/socket";
 import WidgetStatic from "../../../src/views/dashboards/crm/WidgetStatic";
+import { API_BOT } from "../../../src/apis";
+import { useRouter } from "next/router";
+import MenuPopover from "../../../src/component/MenuPopover";
 
 const Ecommerce = () => {
   const settings = {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 10000,
   };
   const isMountedRef = useIsMountedRef();
+  const [botList, setBotList]= useState([])
 
   const socket = useContext(SocketContext);
 
@@ -324,9 +329,17 @@ const Ecommerce = () => {
   const handleCloseWallet = () => {
     setOpenWallet(false);
   };
+
+  const getBotList=async  ()=> {
+    const response= await API_BOT.getBots()
+    setBotList(response.data?.d)
+  }
+  useEffect(() => {
+      getBotList()
+    }, [])  
   return (
     <PageContainer>
-      <Box mt={3}>
+      <Box >
         <br />
         <div className={"wrap-1"} style={{ width: "100%" }}>
           <Slider {...settings}>
@@ -346,8 +359,110 @@ const Ecommerce = () => {
                 </Grid>
               </Grid>
             </Grid> */}
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
+            {
+              botList?.map((item, key)=>
+                <div className={styles["botlist__item"]} key={key}>
+                    <div style={{width: "100%", direction: "rtl", }}>
+                      <MoreMenuButton />
+                    </div>
+                    <div style={{textAlign: "center", fontSize: 24}}>{item?.name}</div>
+                    <div style={{textAlign: "center", fontWeight: 700, fontSize: 36, marginTop: 24}}>
+                      ${item?.total_volume_demo}
+                    </div>
+                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", gap: 20, marginTop: 30}}>
+                      <Button>Turn on</Button>
+                      <Button>View history</Button>
+                    </div>
+                </div>
+               )
+            }
 
-            <div style={{ width: "100%", margin: "0 10px", height: "inherit" }}>
+            {/* <div style={{ width: "100%", margin: "0 10px", height: "inherit" }}>
               <CrmAward />
             </div>
             <div style={{ width: "100%" }}>
@@ -438,7 +553,7 @@ const Ecommerce = () => {
                 }
                 icon={"fa6-solid:sack-dollar"}
               />
-            </div>
+            </div> */}
 
             {/* <Grid item xs={12} sm={6} lg={4}>
               <Grid container spacing={3}>
@@ -481,5 +596,165 @@ const Ecommerce = () => {
     </PageContainer>
   );
 };
+
+function MoreMenuButton({ handleDelete, handleActionBot, details, id, colorBtn = 'warning.main' }) {
+  const { translate } = useLocales();
+  const navigate = useRouter();
+
+  const [open, setOpen] = useState(null);
+
+  const handleOpen = (event) => {
+    setOpen(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setOpen(null);
+  };
+
+  const [isOpenInfo, setOpenInfo] = useState(false);
+  const [openDonate, setDonate] = useState(false);
+
+  const ICON = {
+    mr: 2,
+    width: 20,
+    height: 20,
+  };
+
+  return (
+    <>
+      {/* <InfoDialog data={details} isOpen={isOpenInfo} setIsOpen={setOpenInfo} /> */}
+
+      {/* <DonateDialog botIds={[id]} isOpen={openDonate} setIsOpen={setDonate} /> */}
+
+      <IconButton
+        size="small"
+        onClick={handleOpen}
+        sx={{
+          color: details?.isRunning ? 'success.main' : 'warning.main',
+        }}
+      >
+        <Iconify icon={'ant-design:setting-filled'} width={25} height={25} />
+      </IconButton>
+
+      <MenuPopover
+        open={Boolean(open)}
+        anchorEl={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        arrow="right-top"
+        sx={{
+          mt: -0.5,
+          width: 160,
+          '& .MuiMenuItem-root': { px: 1, typography: 'body2', borderRadius: 0.75 },
+        }}
+      >
+        {details?.isRunning ? (
+          <>
+            <MenuItem
+              sx={{ color: 'warning.main' }}
+              onClick={() => {
+                handleActionBot(id, 'stop');
+                setOpen(null);
+              }}
+            >
+              <Iconify icon={'bi:stop-circle-fill'} sx={{ ...ICON }} />
+              {translate('stop')}
+            </MenuItem>
+            {details.isPause ? (
+              <MenuItem
+                sx={{ color: 'success.main' }}
+                onClick={() => {
+                  handleActionBot(id, 'resume');
+                  setOpen(null);
+                }}
+              >
+                <Iconify icon={'grommet-icons:resume'} sx={{ ...ICON }} />
+                {translate('resume')}
+              </MenuItem>
+            ) : (
+              <MenuItem
+                sx={{ color: 'warning.main' }}
+                onClick={() => {
+                  handleActionBot(id, 'pause');
+                  setOpen(null);
+                }}
+              >
+                <Iconify icon={'ic:round-pause-circle'} sx={{ ...ICON }} />
+                {translate('pause')}
+              </MenuItem>
+            )}
+          </>
+        ) : (
+          <MenuItem
+            sx={{ color: 'success.main' }}
+            onClick={() => {
+              handleActionBot(id, 'start');
+              setOpen(null);
+            }}
+          >
+            <Iconify icon={'flat-color-icons:start'} sx={{ ...ICON }} />
+            {translate('start')}
+          </MenuItem>
+        )}
+
+        <MenuItem
+          sx={{ color: 'warning.main' }}
+          onClick={() => {
+            navigate.push(PATH_DASHBOARD.bot.edit(id));
+            setOpen(null);
+          }}
+        >
+          <Iconify icon={'fluent-emoji:pencil'} sx={{ ...ICON }} />
+          {translate('edit')}
+        </MenuItem>
+        {details && (
+          <MenuItem
+            sx={{ color: 'success.main' }}
+            onClick={() => {
+              setDonate(true);
+              setOpen(null);
+            }}
+          >
+            <Iconify icon={'mdi:donate'} sx={{ ...ICON }} />
+            {translate('donate')}
+          </MenuItem>
+        )}
+
+        <MenuItem
+          sx={{ color: 'info.main' }}
+          onClick={() => {
+            navigate.push(PATH_DASHBOARD.bot.history(id));
+            setOpen(null);
+          }}
+        >
+          <Iconify icon={'ic:baseline-work-history'} sx={{ ...ICON }} />
+          {translate('view_history')}
+        </MenuItem>
+        <MenuItem
+          sx={{ color: 'error.main' }}
+          onClick={() => {
+            handleDelete(id);
+            setOpen(null);
+          }}
+        >
+          <Iconify icon={'eva:trash-2-outline'} sx={{ ...ICON }} />
+          {translate('delete')}
+        </MenuItem>
+        <Divider />
+        <MenuItem
+          sx={{ color: 'info.main' }}
+          onClick={() => {
+            setOpenInfo(true);
+            setOpen(null);
+          }}
+        >
+          <Iconify icon={'entypo:info-with-circle'} sx={{ ...ICON }} />
+          {translate('info')}
+        </MenuItem>
+      </MenuPopover>
+    </>
+  );
+}
 
 export default Ecommerce;
